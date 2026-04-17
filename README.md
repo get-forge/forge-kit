@@ -1,11 +1,11 @@
 # Forge Kit
 
-[![Lines of Code](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Faeells%2Fforge-kit%2Flines)](https://tokei.kojix2.net/github/aeells/forge-kit)
-[![Top Language](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Faeells%2Fforge-kit%2Flanguage)](https://tokei.kojix2.net/github/aeells/forge-kit)
-[![Languages](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Faeells%2Fforge-kit%2Flanguages)](https://tokei.kojix2.net/github/aeells/forge-kit)
-[![Code to Comment](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Faeells%2Fforge-kit%2Fratio)](https://tokei.kojix2.net/github/aeells/forge-kit)
-![License](https://img.shields.io/github/license/aeells/forge-kit)
-![Last Commit](https://img.shields.io/github/last-commit/aeells/forge-kit)
+[![Lines of Code](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fget-forge%2Fforge-kit%2Flines)](https://tokei.kojix2.net/github/get-forgeget-forge/forge-kit)
+[![Top Language](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fget-forge%2Fforge-kit%2Flanguage)](https://tokei.kojix2.net/github/get-forge/forge-kit)
+[![Languages](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fget-forge%2Fforge-kit%2Flanguages)](https://tokei.kojix2.net/github/get-forge/forge-kit)
+[![Code to Comment](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fget-forge%2Fforge-kit%2Fratio)](https://tokei.kojix2.net/github/get-forge/forge-kit)
+![License](https://img.shields.io/github/license/get-forge/forge-kit)
+![Last Commit](https://img.shields.io/github/last-commit/get-forge/forge-kit)
 
 [![Quarkus](https://img.shields.io/badge/Quarkus-v3.31.1-blue?logo=quarkus)](https://quarkus.io/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
@@ -13,10 +13,10 @@
 
 **CI Status**
 
-[![00 🧩 Hygiene checks](https://github.com/aeells/forge-kit/actions/workflows/00-hygiene-check.yml/badge.svg)](https://github.com/aeells/forge-kit/actions/workflows/00-hygiene-check.yml) [![01 🚧 Build and test](https://github.com/aeells/forge-kit/actions/workflows/01-build-test.yml/badge.svg)](https://github.com/aeells/forge-kit/actions/workflows/01-build-test.yml) [![02 🔎 Static analysis](https://github.com/aeells/forge-kit/actions/workflows/02-static-analysis.yml/badge.svg)](https://github.com/aeells/forge-kit/actions/workflows/02-static-analysis.yml)  
-[![03 👊🏽 Auto version bump](https://github.com/aeells/forge-kit/actions/workflows/03-release-bump.yml/badge.svg)](https://github.com/aeells/forge-kit/actions/workflows/03-release-bump.yml) [![04 📦 Publish packages](https://github.com/aeells/forge-kit/actions/workflows/04-publish-packages.yml/badge.svg)](https://github.com/aeells/forge-kit/actions/workflows/04-publish-packages.yml) [![51 🔎 Code coverage](https://github.com/aeells/forge-kit/actions/workflows/51-code-coverage.yml/badge.svg)](https://github.com/aeells/forge-kit/actions/workflows/51-code-coverage.yml)  
+[![00 🧩 Hygiene checks](https://github.com/get-forge/forge-kit/actions/workflows/00-hygiene-check.yml/badge.svg)](https://github.com/get-forge/forge-kit/actions/workflows/00-hygiene-check.yml) [![01 🚧 Build and test](https://github.com/get-forge/forge-kit/actions/workflows/01-build-test.yml/badge.svg)](https://github.com/get-forge/forge-kit/actions/workflows/01-build-test.yml) [![02 🔎 Static analysis](https://github.com/get-forge/forge-kit/actions/workflows/02-static-analysis.yml/badge.svg)](https://github.com/get-forge/forge-kit/actions/workflows/02-static-analysis.yml)  
+[![03 👊🏽 Auto version bump](https://github.com/get-forge/forge-kit/actions/workflows/03-release-bump.yml/badge.svg)](https://github.com/get-forge/forge-kit/actions/workflows/03-release-bump.yml) [![04 📦 Publish packages](https://github.com/get-forge/forge-kit/actions/workflows/04-publish-packages.yml/badge.svg)](https://github.com/get-forge/forge-kit/actions/workflows/04-publish-packages.yml) [![51 🔎 Code coverage](https://github.com/get-forge/forge-kit/actions/workflows/51-code-coverage.yml/badge.svg)](https://github.com/get-forge/forge-kit/actions/workflows/51-code-coverage.yml)  
 
-[![codecov](https://codecov.io/github/aeells/forge-kit/graph/badge.svg?token=RP8Z2NWG9L)](https://codecov.io/github/aeells/forge-kit)
+[![codecov](https://codecov.io/github/get-forge/forge-kit/graph/badge.svg?token=RP8Z2NWG9L)](https://codecov.io/github/get-forge/forge-kit)
 
 ---
 

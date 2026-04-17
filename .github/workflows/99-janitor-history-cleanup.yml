@@ -17,6 +17,6 @@ jobs:
         uses: Mattraks/delete-workflow-runs@v2.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: aeells/forge-kit
+          repository: get-forge/forge-kit
           retain_days: 7
           keep_minimum_runs: 1

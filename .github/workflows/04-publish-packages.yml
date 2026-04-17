@@ -25,7 +25,7 @@ jobs:
             <servers>
               <server>
                 <id>github</id>
-                <username>aeells</username>
+                <username>get-forge</username>
                 <password>${{ secrets.PAT_FORGE_DEPLOY }}</password>
               </server>
             </servers>
