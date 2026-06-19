@@ -30,7 +30,7 @@
         <aws.sdk.version>2.42.27</aws.sdk.version>
 
         <!-- Additional Java dependencies -->
-        <bucket4j.version>8.17.0</bucket4j.version>
+        <bucket4j.version>8.18.0</bucket4j.version>
         <commons.lang3.version>3.20.0</commons.lang3.version>
         <commons.collections4.version>4.5.0</commons.collections4.version>
 
@@ -99,6 +99,11 @@
             <dependency>
                 <groupId>com.bucket4j</groupId>
                 <artifactId>bucket4j_jdk17-core</artifactId>
+                <version>${bucket4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.bucket4j</groupId>
+                <artifactId>bucket4j_jdk17-vertx</artifactId>
                 <version>${bucket4j.version}</version>
             </dependency>
             <dependency>

@@ -82,7 +82,7 @@ Each module includes focused documentation and examples.
 - [Examples →](examples/)
 - [Templates →](templates/)
 - [Architecture Decision Records →](docs/architecture/decisions/)
-- [Code Quality & CI Enforcement](docs/CODE_QUALITY.md)
+- [Code Quality & CI Enforcement](CODE_QUALITY.md)
 
 ---
 

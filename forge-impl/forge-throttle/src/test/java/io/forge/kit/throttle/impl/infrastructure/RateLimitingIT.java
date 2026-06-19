@@ -2,6 +2,7 @@ package io.forge.kit.throttle.impl.infrastructure;
 
 import static org.hamcrest.Matchers.equalTo;
 
+import io.forge.kit.throttle.api.infrastructure.RateLimiter;
 import io.forge.kit.throttle.impl.test.ThrottlingEnabledTestProfile;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -31,15 +33,14 @@ import org.junit.jupiter.api.Test;
 class RateLimitingIT
 {
     @Inject
-    Bucket4jRateLimiter bucket4jRateLimiter;
+    RateLimiter rateLimiter;
 
+    @BeforeEach
     @AfterEach
-    void clearBuckets()
+    void resetRateLimiterState()
     {
-        // Tests use the same unauthenticated key (ip:unknown)
-        // Bucket4jRateLimiter is @ApplicationScoped; buckets map persists across tests
-        // Clear buckets after each test to ensure tests don't interfere with each other
-        bucket4jRateLimiter.clearBuckets();
+        // ApplicationScoped limiter persists across tests; reset via interface to work with CDI proxies
+        rateLimiter.resetForTests();
     }
 
     @Test

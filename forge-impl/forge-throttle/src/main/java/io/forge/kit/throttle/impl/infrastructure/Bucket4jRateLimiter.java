@@ -3,15 +3,12 @@ package io.forge.kit.throttle.impl.infrastructure;
 import io.forge.kit.throttle.api.infrastructure.RateLimitStatus;
 import io.forge.kit.throttle.api.infrastructure.RateLimiter;
 import io.forge.kit.throttle.api.infrastructure.RateLimiterProperties;
-import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
-import io.github.bucket4j.ConsumptionProbe;
-import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Rate limiter implementation using Bucket4j library.
+ * In-memory rate limiter implementation using Bucket4j.
  *
  * <p>This bean is only created if {@link RateLimiterProperties} is available, allowing
  * services without rate-limit configuration to start successfully.</p>
@@ -34,24 +31,21 @@ public class Bucket4jRateLimiter implements RateLimiter
     public RateLimitStatus tryConsume(final String key)
     {
         final Bucket bucket = buckets.computeIfAbsent(key, this::createBucket);
-        final ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
         final long capacity = properties.resolveCapacityForKey(key);
-
-        if (probe.isConsumed())
-        {
-            return new RateLimitStatus(true, capacity, probe.getRemainingTokens(), 0L);
-        }
-        else
-        {
-            final long retryAfterNanos = probe.getNanosToWaitForRefill();
-            final long retryAfterSeconds = retryAfterNanos > 0L ? (retryAfterNanos / 1_000_000_000L) + 1L : 1L;
-            return new RateLimitStatus(false, capacity, probe.getRemainingTokens(), retryAfterSeconds);
-        }
+        return RateLimitStatusMapper.fromProbe(bucket.tryConsumeAndReturnRemaining(1L), capacity);
     }
 
     /**
      * Clears all rate limit buckets. Intended for testing only.
-     * This allows tests to start with a clean state.
+     */
+    @Override
+    public void resetForTests()
+    {
+        clearBuckets();
+    }
+
+    /**
+     * Clears all rate limit buckets. Intended for testing only.
      */
     public void clearBuckets()
     {
@@ -60,17 +54,8 @@ public class Bucket4jRateLimiter implements RateLimiter
 
     private Bucket createBucket(final String key)
     {
-        final long capacity = properties.resolveCapacityForKey(key);
-        final long refillPerSecond = properties.resolveRefillPerSecondForKey(key);
-
-        // Create bandwidth with explicit initialTokens to ensure bucket starts full
-        final Bandwidth bandwidth = Bandwidth.builder()
-            .capacity(capacity)
-            .refillIntervally(refillPerSecond, Duration.ofSeconds(1L))
-            .build();
-
         return Bucket.builder()
-            .addLimit(bandwidth)
+            .addLimit(BucketConfigurationFactory.createBandwidth(properties, key))
             .build();
     }
 }

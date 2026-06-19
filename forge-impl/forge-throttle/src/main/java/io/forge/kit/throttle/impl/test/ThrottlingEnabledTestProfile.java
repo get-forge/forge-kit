@@ -31,14 +31,15 @@ public sealed class ThrottlingEnabledTestProfile implements QuarkusTestProfile p
     {
         if (enabled)
         {
-            // override any test/application configuration to enable throttling
-            // all other configuration from test/resources/application.properties etc. will be ignored
+            // Low limits so RateLimitingIT can exhaust buckets quickly.
             return Map.of(
                 "forge.rate-limit.reference.enabled", "true",
                 "rate-limit.authenticated-capacity-per-minute", "10",
                 "rate-limit.unauthenticated-capacity-per-minute", "10",
                 "rate-limit.authenticated-refill-per-second", "100",
-                "rate-limit.unauthenticated-refill-per-second", "100"
+                "rate-limit.unauthenticated-refill-per-second", "100",
+                "rate-limit.store", "memory",
+                "quarkus.redis.devservices.enabled", "false"
             );
         }
         else

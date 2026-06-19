@@ -12,4 +12,11 @@ public interface RateLimiter
      * @return status of the rate limit decision
      */
     RateLimitStatus tryConsume(String key);
+
+    /**
+     * Clears in-memory or Redis bucket state. Intended for integration tests only.
+     */
+    default void resetForTests()
+    {
+    }
 }
