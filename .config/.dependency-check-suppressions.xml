@@ -36,9 +36,10 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-           quarkus-vertx-http @3.34.1 — await Quarkus BOM upgrade.
+           io.quarkus* @3.34.1 (all Quarkus BOM modules, including io.quarkus.arc, io.quarkus.vertx.utils,
+           io.quarkus.resteasy.reactive, etc.). Await Quarkus BOM upgrade.
         ]]></notes>
-        <packageUrl regex="true">^pkg:maven/io\.quarkus/quarkus-vertx-http@3\.34\.1$</packageUrl>
+        <packageUrl regex="true">^pkg:maven/io\.quarkus[^/]*/[^/]+@3\.34\.1$</packageUrl>
         <vulnerabilityName regex="true">.*</vulnerabilityName>
     </suppress>
 
