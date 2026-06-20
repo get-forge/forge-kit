@@ -1,3 +1,9 @@
+## v1.1.1 (2026-06-20)
+
+### Fix
+
+- **throttle**: guard null Redis responses and run filter on worker pool
+
 ## v1.1.0 (2026-06-20)
 
 ### Feat
