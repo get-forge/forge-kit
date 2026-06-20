@@ -4,6 +4,8 @@ import io.forge.kit.throttle.api.infrastructure.RateLimitStatus;
 import io.forge.kit.throttle.api.infrastructure.RateLimiter;
 import io.forge.kit.throttle.impl.key.strategy.HttpHeaderRateLimitKeyStrategy;
 import io.quarkus.arc.properties.IfBuildProperty;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
@@ -48,32 +50,47 @@ public class ReferenceRateLimitingFilter
      *
      * <p>Runs with {@code preMatching=true} and high priority to ensure
      * throttling is applied before authentication and routing.</p>
+     *
+     * <p>Returns {@link Uni} so Redis-backed rate limiting runs on a worker thread.</p>
      */
     @ServerRequestFilter(preMatching = true, priority = 10)
-    public void filter(final ResteasyReactiveContainerRequestContext ctx)
+    public Uni<Void> filter(final ResteasyReactiveContainerRequestContext ctx)
     {
-        // Defensive: should never happen in a correctly configured service
-        if (rateLimiter.isResolvable())
+        if (!rateLimiter.isResolvable())
         {
-            final String rateLimitKey = keyResolver.resolve(ctx);
-            final RateLimitStatus status = rateLimiter.get().tryConsume(rateLimitKey);
+            return Uni.createFrom().voidItem();
+        }
 
-            if (!status.allowed())
+        return Uni.createFrom()
+            .item(() ->
             {
-                LOGGER.warnf("Rate limit exceeded for key [%s] (limit=%d, remaining=%d)", rateLimitKey, status.limit(), status.remaining());
+                applyRateLimit(ctx);
+                return null;
+            })
+            .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
+            .replaceWithVoid();
+    }
 
-                final Response.ResponseBuilder response = Response.status(429)
-                    .entity(Map.of("error", "Rate limit exceeded"))
-                    .header("X-RateLimit-Limit", status.limit())
-                    .header("X-RateLimit-Remaining", status.remaining());
+    private void applyRateLimit(final ResteasyReactiveContainerRequestContext ctx)
+    {
+        final String rateLimitKey = keyResolver.resolve(ctx);
+        final RateLimitStatus status = rateLimiter.get().tryConsume(rateLimitKey);
 
-                if (status.retryAfterSeconds() > 0)
-                {
-                    response.header("Retry-After", status.retryAfterSeconds());
-                }
+        if (!status.allowed())
+        {
+            LOGGER.warnf("Rate limit exceeded for key [%s] (limit=%d, remaining=%d)", rateLimitKey, status.limit(), status.remaining());
 
-                ctx.abortWith(response.build());
+            final Response.ResponseBuilder response = Response.status(429)
+                .entity(Map.of("error", "Rate limit exceeded"))
+                .header("X-RateLimit-Limit", status.limit())
+                .header("X-RateLimit-Remaining", status.remaining());
+
+            if (status.retryAfterSeconds() > 0)
+            {
+                response.header("Retry-After", status.retryAfterSeconds());
             }
+
+            ctx.abortWith(response.build());
         }
     }
 }

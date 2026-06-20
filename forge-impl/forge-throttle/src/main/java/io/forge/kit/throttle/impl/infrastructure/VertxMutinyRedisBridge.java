@@ -40,7 +40,7 @@ final class VertxMutinyRedisBridge implements Redis
             mutinyRedis.send(new io.vertx.mutiny.redis.client.Request(request))
                 .subscribe()
                 .asCompletionStage()
-                .thenApply(response -> response.getDelegate())
+                .thenApply(VertxMutinyRedisBridge::toDelegate)
         );
     }
 
@@ -56,8 +56,14 @@ final class VertxMutinyRedisBridge implements Redis
                 .subscribe()
                 .asCompletionStage()
                 .thenApply(responses -> responses.stream()
-                    .map(io.vertx.mutiny.redis.client.Response::getDelegate)
+                    .map(VertxMutinyRedisBridge::toDelegate)
                     .collect(Collectors.toList()))
         );
+    }
+
+    private static Response toDelegate(final io.vertx.mutiny.redis.client.Response response)
+    {
+        // Redis NIL / missing keys can surface as a null Mutiny response; Bucket4j expects null delegate.
+        return response == null ? null : response.getDelegate();
     }
 }
