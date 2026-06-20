@@ -76,7 +76,7 @@ tasks:
     desc: Static analysis profile; skips all tests
     aliases: [ sa ]
     cmds:
-      - '{{.MAVEN_CMD}} verify -Pstatic-analysis'
+      - '{{.MAVEN_CMD}} verify -Pstatic-analysis -DautoUpdate=false'
 
   owasp-dependency-check-update:
     dir: "{{.ROOT_DIR}}"

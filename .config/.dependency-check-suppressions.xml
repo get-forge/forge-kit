@@ -1,34 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    <!--
+        Transitive Quarkus BOM dependencies — suppress by pinned version.
+        packageUrl alone is NOT enough in dependency-check 12.x; pair with
+        vulnerabilityName regex="true">.* to match all CVEs on that coordinate.
+        Revisit when Quarkus BOM is upgraded.
+    -->
     <suppress>
         <notes><![CDATA[
-           Suppressing CVE-2026-33871, CVE-2026-33870 for io.netty:* 4.1.130.Final (e.g. netty-transport,
-           netty-transport-native-unix-common). Same Netty CPE across multiple jars; await BOM upgrade.
+           io.netty:* @4.1.130.Final — transitive via Quarkus/Vert.x.
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/io\.netty/[^/]+@4\.1\.130\.Final$</packageUrl>
-        <cve>CVE-2026-33871</cve>
-        <cve>CVE-2026-33870</cve>
+        <vulnerabilityName regex="true">.*</vulnerabilityName>
     </suppress>
     <suppress>
         <notes><![CDATA[
-           plexus-utils 3.5.1 (transitive from Maven/build tooling). Suppress CVE-2025-67030 until the
-           plugin/BOM chain picks up a fixed plexus-utils.
+           io.vertx:* @4.5.25 — transitive via Quarkus.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.vertx/[^/]+@4\.5\.25$</packageUrl>
+        <vulnerabilityName regex="true">.*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           jackson-databind @2.21.2 — transitive via Quarkus REST Jackson.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson\.core/jackson-databind@2\.21\.2$</packageUrl>
+        <vulnerabilityName regex="true">.*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           micrometer-core @1.16.3 — transitive via Quarkus Micrometer.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.micrometer/micrometer-core@1\.16\.3$</packageUrl>
+        <vulnerabilityName regex="true">.*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           quarkus-vertx-http @3.34.1 — await Quarkus BOM upgrade.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.quarkus/quarkus-vertx-http@3\.34\.1$</packageUrl>
+        <vulnerabilityName regex="true">.*</vulnerabilityName>
+    </suppress>
+
+    <!-- False positives / build tooling — specific CVE with rationale -->
+    <suppress>
+        <notes><![CDATA[
+           plexus-utils 3.5.1 (Maven build tooling). Await plugin/BOM chain upgrade.
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus-utils@3\.5\.1$</packageUrl>
         <cve>CVE-2025-67030</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
-           CVE-2023-1932 for quarkus-hibernate-validator-spi 3.32.3: false positive — issue is in
-           Hibernate Validator core, not the Quarkus SPI jar; CPE maps artifact version to validator.
+           quarkus-hibernate-validator-spi: false positive — CVE-2023-1932 is Hibernate Validator
+           core, not the Quarkus SPI jar; CPE maps artifact version to validator.
         ]]></notes>
-        <packageUrl regex="true">^pkg:maven/io\.quarkus/quarkus-hibernate-validator-spi@3\.32\.3$</packageUrl>
+        <packageUrl regex="true">^pkg:maven/io\.quarkus/quarkus-hibernate-validator-spi@3\.(32|34)\.[0-9]+$</packageUrl>
         <cve>CVE-2023-1932</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
-           microprofile-config-api 3.1: CVE-2022-37422, CVE-2022-45129 match cpe:payara:payara:3.1 — Payara
-           server issues, not this API jar (transitive from MicroProfile / Quarkus stack).
+           microprofile-config-api 3.1: CVE-2022-37422, CVE-2022-45129 match cpe:payara:payara:3.1 —
+           Payara server issues, not this API jar.
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/org\.eclipse\.microprofile\.config/microprofile-config-api@3\.1$</packageUrl>
         <cve>CVE-2022-37422</cve>

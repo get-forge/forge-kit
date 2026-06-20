@@ -424,7 +424,8 @@
                         <artifactId>dependency-check-maven</artifactId>
                         <version>${owasp.version}</version>
                         <configuration>
-                            <nvdValidForHours>24</nvdValidForHours>
+                            <!-- CI: reduce NVD churn; pair with actions/cache on .dependency-check-cache -->
+                            <nvdValidForHours>168</nvdValidForHours>
                             <nvdApiKey>${nvd.api.key}</nvdApiKey>
                             <failBuildOnCVSS>7</failBuildOnCVSS>
                             <dataDirectory>${maven.multiModuleProjectDirectory}/.dependency-check-cache</dataDirectory>

@@ -32,3 +32,9 @@ jobs:
             dependency-check-${{ runner.os }}-
 
       - run: task build:owasp
+
+      - uses: actions/cache/save@v5
+        if: success()
+        with:
+          path: .dependency-check-cache
+          key: dependency-check-${{ runner.os }}-v1
