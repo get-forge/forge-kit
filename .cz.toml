@@ -2,6 +2,7 @@
 name = "cz_conventional_commits"
 version = "1.0.9"
 version_files = []
+version_scheme = "semver2"
 tag_format = "v$version"
 update_changelog_on_bump = true
 changelog_file = "CHANGELOG.md"
