@@ -1,3 +1,17 @@
+## v1.1.0 (2026-06-20)
+
+### Feat
+
+- **cache**: redis impl
+
+### Fix
+
+- **cz**: bump tag issue
+
+### Refactor
+
+- **github**: repository org transfer
+
 ## v1.0.9 (2026-04-02)
 
 ### Fix
