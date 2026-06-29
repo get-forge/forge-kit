@@ -25,10 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/tools
-      - uses: actions/cache@v5
+      - uses: actions/cache/restore@v5
         with:
           path: .dependency-check-cache
-          key: dependency-check-${{ runner.os }}-v1
+          key: dependency-check-${{ runner.os }}-v2
           restore-keys: |
             dependency-check-${{ runner.os }}-
 

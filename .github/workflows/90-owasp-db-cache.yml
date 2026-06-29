@@ -1,0 +1,54 @@
+---
+name: '90 🗄️ OWASP db cache'
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # Sunday 00:00 UTC
+
+concurrency:
+  group: owasp-db-cache
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: read
+  actions: write
+
+env:
+  NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+  OSS_INDEX_USER: ${{ secrets.OSS_INDEX_USER }}
+  OSS_INDEX_API_KEY: ${{ secrets.OSS_INDEX_API_KEY }}
+
+jobs:
+  owasp-dependency-check-cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/tools
+      - name: Install gum
+        run: |
+          sudo mkdir -p /etc/apt/keyrings
+          curl -fsSL https://repo.charm.sh/apt/gpg.key \
+            | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+          echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" \
+            | sudo tee /etc/apt/sources.list.d/charm.list
+          sudo apt-get update
+          sudo apt-get install -y gum
+      - uses: actions/cache/restore@v5
+        with:
+          path: .dependency-check-cache
+          key: dependency-check-${{ runner.os }}-v2
+          restore-keys: |
+            dependency-check-${{ runner.os }}-
+
+      - id: owasp-update
+        run: .github/scripts/owasp-update-resilient.sh
+
+      - uses: actions/cache/save@v5
+        if: success() && steps.owasp-update.outputs.cache_modified == 'true'
+        with:
+          path: .dependency-check-cache
+          key: dependency-check-${{ runner.os }}-v2

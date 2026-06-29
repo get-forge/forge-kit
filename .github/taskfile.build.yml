@@ -83,4 +83,4 @@ tasks:
     desc: Refresh OWASP NVD data only (for CI cache warming; no project scan)
     aliases: [ owasp ]
     cmds:
-      - '{{.MAVEN_CMD}} -B -N org.owasp:dependency-check-maven:update-only -Pstatic-analysis'
+      - .github/scripts/owasp-update-resilient.sh
