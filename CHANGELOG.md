@@ -1,3 +1,18 @@
+## v1.2.0 (2026-06-29)
+
+### Feat
+
+- **logging**: add forge-logging module and forge-logging-api
+
+### Fix
+
+- **ci**: restore full Quarkus BOM OWASP suppressions for forge-kit
+- **ci**: restore Micrometer 1.16.5 OWASP suppression
+- **ci**: trim OWASP suppressions for Quarkus 3.36.1 in forge-kit
+- **ci**: exclude AWS key test fixture from Trufflehog scan
+- **logging**: avoid Trufflehog false positive on AWS key test fixture
+- **logging**: align forge-logging parent POM version with 1.1.1
+
 ## v1.1.1 (2026-06-20)
 
 ### Fix
