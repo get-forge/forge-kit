@@ -1,3 +1,9 @@
+## v1.3.0 (2026-06-29)
+
+### Feat
+
+- **observability**: add AWS observability and SigV4 HTTP modules
+
 ## v1.2.1 (2026-06-29)
 
 ### Fix
