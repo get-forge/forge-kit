@@ -4,6 +4,9 @@
       BOM-managed transitives: suppress all CVEs at the pinned version until the next platform
       dependency bump (Quarkus / etc.). Review this file when bumping quarkus.platform.version —
       not on every NVD refresh.
+
+      Rules may log "zero matches" on modules that do not pull that transitive; that is expected.
+      Do not remove BOM rules based on zero-match alone — CI NVD data often leads local scans.
     -->
     <suppress>
         <notes><![CDATA[
@@ -21,9 +24,70 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-           Micrometer 1.16.5 (forge-metrics via quarkus-micrometer; BOM-managed transitive).
+           Jackson 2.21.4 (transitive from Quarkus 3.36.1 BOM).
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson(\.[^/]+)?/[^/]+@2\.21\.4$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           OpenTelemetry semconv 1.40.0 / incubating 1.40.0-alpha (Quarkus 3.36.1 BOM).
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.opentelemetry\.semconv/(opentelemetry-semconv@1\.40\.0|opentelemetry-semconv-incubating@1\.40\.0-alpha)$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           OpenTelemetry 1.60.1 (all modules, Quarkus 3.36.1 BOM).
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.opentelemetry/[^/]+@1\.60\.1$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           Micrometer 1.16.5 (all modules, Quarkus 3.36.1 BOM).
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/io\.micrometer/[^/]+@1\.16\.5$</packageUrl>
         <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           Eclipse Vert.x 4.5.27 (all io.vertx modules, Quarkus 3.36.1 BOM).
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.vertx/[^/]+@4\.5\.27$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           Prometheus simpleclient_tracer_otel_agent 0.16.0 (Quarkus BOM via micrometer; OpenTelemetry CPE false positive).
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.prometheus/simpleclient_tracer_otel_agent@0\.16\.0$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+
+    <!-- False positives / build tooling — specific CVE with rationale -->
+    <suppress>
+        <notes><![CDATA[
+           plexus-utils 3.5.1 (Maven build tooling). Await plugin/BOM chain upgrade.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus-utils@3\.5\.1$</packageUrl>
+        <cve>CVE-2025-67030</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           quarkus-hibernate-validator-spi: false positive — CVE-2023-1932 is Hibernate Validator
+           core, not the Quarkus SPI jar; CPE maps artifact version to validator.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.quarkus/quarkus-hibernate-validator-spi@3\.(32|34|36)\.[0-9]+$</packageUrl>
+        <cve>CVE-2023-1932</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+           microprofile-config-api 3.1: CVE-2022-37422, CVE-2022-45129 match cpe:payara:payara:3.1 —
+           Payara server issues, not this API jar.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.eclipse\.microprofile\.config/microprofile-config-api@3\.1$</packageUrl>
+        <cve>CVE-2022-37422</cve>
+        <cve>CVE-2022-45129</cve>
     </suppress>
 </suppressions>
