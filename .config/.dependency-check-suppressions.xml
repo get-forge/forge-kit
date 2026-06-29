@@ -19,4 +19,11 @@
         <packageUrl regex="true">^pkg:maven/io\.netty/[^/]+@4\.1\.133\.Final$</packageUrl>
         <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+           Micrometer 1.16.5 (forge-metrics via quarkus-micrometer; BOM-managed transitive).
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.micrometer/[^/]+@1\.16\.5$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
 </suppressions>
