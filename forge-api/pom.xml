@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>forge-common-api</module>
+        <module>forge-logging-api</module>
         <module>forge-metrics-api</module>
         <module>forge-security-api</module>
         <module>forge-throttle-api</module>
@@ -21,7 +21,7 @@
         <!-- Quarkus BOM -->
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>3.34.1</quarkus.platform.version>
+        <quarkus.platform.version>3.36.1</quarkus.platform.version>
 
         <!-- Additional Java dependencies -->
         <commons.lang3.version>3.20.0</commons.lang3.version>

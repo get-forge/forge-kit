@@ -1,6 +1,6 @@
-package io.forge.kit.examples.common;
+package io.forge.kit.examples.logging;
 
-import io.forge.kit.common.api.logging.LogMethodEntry;
+import io.forge.kit.logging.api.LogMethodEntry;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
  * for automatic method entry logging.
  * 
  * <p>The {@code LogMethodEntryInterceptor} is automatically wired in
- * when forge-common is included as a dependency. You only need to
+ * when forge-logging is included as a dependency. You only need to
  * annotate methods or classes with {@code @LogMethodEntry}.
  * 
  * <p>This example shows:

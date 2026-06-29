@@ -9,12 +9,4 @@
 
     <artifactId>forge-common</artifactId>
 
-    <dependencies>
-        <!-- forge apis -->
-        <dependency>
-            <groupId>io.forge</groupId>
-            <artifactId>forge-common-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>

@@ -12,7 +12,6 @@ It focuses on consistency, correctness, and developer ergonomics rather than fea
 
 - Validation and exception mapping utilities
 - REST-layer helpers
-- Method entry logging
 - Test utilities for deterministic infrastructure testing
 - Clean Architecture–aligned structure
 
@@ -58,26 +57,6 @@ record CreateUserRequest(
 ) {}
 ```
 
-### Method Entry Logging
-
-The `LogMethodEntryInterceptor` automatically logs method entry when methods are annotated with `@LogMethodEntry`:
-
-```java
-@LogMethodEntry
-public Response getData() {
-    // Logs: "DataResource#getData"
-    return Response.ok().build();
-}
-
-@LogMethodEntry(message = "for user: %s")
-public Response getUser(String userId) {
-    // Logs: "DataResource#getUser for user: {userId}"
-    return Response.ok().build();
-}
-```
-
-Both interceptors are automatically registered - no additional wiring is required.
-
 ---
 
 ## Examples
@@ -86,8 +65,5 @@ See: [examples/forge-common](../../examples/forge-common)
 
 Code examples demonstrate:
 - Using Jakarta Bean Validation with automatic exception mapping
-- Using `@LogMethodEntry` annotation for automatic logging
-- Custom message formatting with parameter extraction
-- Class-level annotation usage
 
 ---

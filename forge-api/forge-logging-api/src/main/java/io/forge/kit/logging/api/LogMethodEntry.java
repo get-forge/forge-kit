@@ -1,4 +1,4 @@
-package io.forge.kit.common.api.logging;
+package io.forge.kit.logging.api;
 
 import jakarta.enterprise.util.Nonbinding;
 import jakarta.interceptor.InterceptorBinding;
@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to mark methods for automatic entry logging.
- * The {@link LogMethodEntryInterceptor} will automatically log method entry
- * with the format: {@code ClassName#methodName}.
+ * Include {@code forge-logging} on the runtime classpath for the interceptor to run.
+ * Logs use the format: {@code ClassName#methodName}.
  *
  * <p>This annotation can be used on methods or classes. When used on a class,
  * it applies to all public methods in that class.

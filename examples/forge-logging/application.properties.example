@@ -1,0 +1,29 @@
+# Structured logging configuration example
+#
+# This file shows example configuration for forge-logging.
+# Copy relevant properties to your application.properties file.
+
+# Local dev: human-readable console with correlation and trace MDC fields.
+# Format is ignored when JSON logging is enabled (deployed profiles below).
+quarkus.log.console.format=%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%X{correlationId}] traceId=%X{traceId} spanId=%X{spanId} [%c{2}] %s%e%n
+quarkus.log.console.json.enabled=false
+
+# Integration / test / production: JSON logs with flat MDC fields for CloudWatch
+%int.quarkus.log.console.json.enabled=true
+%int.quarkus.log.console.json.mdc.flat-fields=true
+%int.quarkus.log.console.filter=sensitive-data-mask
+
+%test.quarkus.log.console.json.enabled=true
+%test.quarkus.log.console.json.mdc.flat-fields=true
+%test.quarkus.log.console.filter=sensitive-data-mask
+
+%prod.quarkus.log.console.json.enabled=true
+%prod.quarkus.log.console.json.mdc.flat-fields=true
+%prod.quarkus.log.console.filter=sensitive-data-mask
+
+# Category log levels
+quarkus.log.level=WARN
+quarkus.log.category."io.forge".level=DEBUG
+%int.quarkus.log.category."io.forge".level=INFO
+%test.quarkus.log.category."io.forge".level=INFO
+%prod.quarkus.log.category."io.forge".level=INFO

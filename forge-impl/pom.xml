@@ -16,13 +16,14 @@
         <module>forge-metrics</module>
         <module>forge-security</module>
         <module>forge-throttle</module>
+        <module>forge-logging</module>
     </modules>
 
     <properties>
         <!-- Quarkus BOM -->
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>3.34.1</quarkus.platform.version>
+        <quarkus.platform.version>3.36.1</quarkus.platform.version>
 
         <!-- AWS SDK BOM -->
         <aws.sdk.group-id>software.amazon.awssdk</aws.sdk.group-id>

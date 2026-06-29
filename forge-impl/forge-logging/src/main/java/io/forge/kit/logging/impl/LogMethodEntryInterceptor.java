@@ -1,8 +1,8 @@
-package io.forge.kit.common.impl.logging;
+package io.forge.kit.logging.impl;
 
-import io.forge.kit.common.api.logging.LogMethodEntry;
 import io.forge.kit.common.impl.interceptor.InvocationContextParameterExtractor;
 import io.forge.kit.common.impl.reflect.AnnotationResolver;
+import io.forge.kit.logging.api.LogMethodEntry;
 import jakarta.annotation.Priority;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
