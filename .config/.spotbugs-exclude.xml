@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
+    <!-- Exclude generated protobuf classes (e.g. forge-observability-api target/generated-sources/protobuf) -->
+    <Match>
+        <Package name="~io\.forge\.kit\.observability\.api\.remotewrite" />
+    </Match>
     <Match>
         <Class name="io.forge.kit.health.impl.infrastructure.CognitoHealthCheck"/>
         <Bug pattern="EI_EXPOSE_REP2"/>

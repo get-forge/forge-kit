@@ -13,6 +13,7 @@
     <modules>
         <module>forge-logging-api</module>
         <module>forge-metrics-api</module>
+        <module>forge-observability-api</module>
         <module>forge-security-api</module>
         <module>forge-throttle-api</module>
     </modules>
@@ -25,6 +26,11 @@
 
         <!-- Additional Java dependencies -->
         <commons.lang3.version>3.20.0</commons.lang3.version>
+        <!-- Must match Quarkus BOM protobuf-java: Quarkus fast-jar loads protobuf parent-first, so RuntimeVersion
+             comes from that copy. Generated code (protoc) must use the same line. Do not bump above BOM
+             without checking quarkus.class-loading or Quarkus release notes. -->
+        <protobuf.version>4.32.1</protobuf.version>
+        <snappy.version>1.1.10.7</snappy.version>
     </properties>
 
     <dependencyManagement>
@@ -49,6 +55,17 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons.lang3.version}</version>
+            </dependency>
+            <!-- observability-api module -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xerial.snappy</groupId>
+                <artifactId>snappy-java</artifactId>
+                <version>${snappy.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

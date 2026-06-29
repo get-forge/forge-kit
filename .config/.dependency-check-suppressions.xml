@@ -28,6 +28,15 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
+           OpenTelemetry 1.60.1 (all modules, Quarkus 3.36.1 BOM).
+           CVE-2026-45292 (unbounded W3C baggage parsing) fixed in OTel 1.62.0; await Quarkus BOM bump.
+           External exposure mitigated by Vert.x/Netty default ~8 KiB header limits on Quarkus HTTP.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.opentelemetry/[^/]+@1\.60\.1$</packageUrl>
+        <vulnerabilityName regex="true">(?s).*</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
            Micrometer 1.16.5 (transitive from Quarkus 3.36.1 BOM).
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/io\.micrometer/[^/]+@1\.16\.5$</packageUrl>

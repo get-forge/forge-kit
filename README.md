@@ -48,6 +48,21 @@ Forge Kit demonstrates the following capabilities that continue with the full Fo
   - Service, circuit breaker, and database performance recorders
   - [Documentation →](forge-impl/forge-metrics/README.md)
 
+- **Prometheus Remote Write** (`forge-observability-api`, `forge-observability-aws`)
+  - PRW 1.0 encoding from Micrometer `MetricSnapshots` (no text scrape parsing).
+  - Scheduled push to Amazon Managed Prometheus with SigV4-signed remote write.
+  - Profile-gated via `@LookupIfProperty` — enable only where AMP is configured.
+  - [Documentation →](forge-impl/forge-observability-aws/README.md)
+
+- **Distributed Tracing (AWS)** (`forge-observability-aws`)
+  - OTLP protobuf export to AWS X-Ray with SigV4 signing.
+  - Works with Quarkus OpenTelemetry; no collector sidecar required.
+  - [Documentation →](forge-impl/forge-observability-aws/README.md)
+
+- **AWS Signed HTTP Transport** (`forge-http-aws`)
+  - Reusable SigV4 signing for outbound HTTP (AMP, X-Ray OTLP, and other AWS endpoints).
+  - [Documentation →](forge-impl/forge-http-aws/README.md)
+
 - **Health Checks** (`forge-health-aws`)
   - Liveness and readiness probe support for AWS environments.
   - [Documentation →](forge-impl/forge-health-aws/README.md)

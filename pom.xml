@@ -37,6 +37,7 @@
 
         <!-- Maven plugin versions -->
         <maven.build.cache.version>1.2.2</maven.build.cache.version>
+        <maven.build.helper.version>3.6.1</maven.build.helper.version>
         <maven.clover.version>4.5.2</maven.clover.version>
         <maven.compiler.version>3.15.0</maven.compiler.version>
         <maven.dependency.version>3.10.0</maven.dependency.version>
@@ -44,6 +45,8 @@
         <maven.enforcer.version>3.6.2</maven.enforcer.version>
         <maven.failsafe.version>3.5.5</maven.failsafe.version>
         <maven.min.version>3.9.9</maven.min.version>
+        <maven.os.version>1.7.1</maven.os.version>
+        <maven.protobuf.version>0.6.1</maven.protobuf.version>
         <maven.spotless.version>3.4.0</maven.spotless.version>
         <maven.surefire.version>3.5.5</maven.surefire.version>
         <maven.versions.version>2.21.0</maven.versions.version>
@@ -193,6 +196,18 @@
                     <groupId>io.smallrye</groupId>
                     <artifactId>jandex-maven-plugin</artifactId>
                     <version>${jandex.version}</version>
+                </plugin>
+
+                <!-- Protobuf code generation -->
+                <plugin>
+                    <groupId>org.xolstice.maven.plugins</groupId>
+                    <artifactId>protobuf-maven-plugin</artifactId>
+                    <version>${maven.protobuf.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${maven.build.helper.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -391,6 +406,10 @@
                             <rulesets>
                                 <ruleset>${maven.multiModuleProjectDirectory}/.config/.pmd-rules.xml</ruleset>
                             </rulesets>
+                            <!-- Exclude generated sources (e.g. protobuf in forge-observability-api) from PMD -->
+                            <excludeRoots>
+                                <excludeRoot>target/generated-sources/protobuf</excludeRoot>
+                            </excludeRoots>
                         </configuration>
                         <executions>
                             <execution>

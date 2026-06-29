@@ -13,7 +13,9 @@
     <modules>
         <module>forge-common</module>
         <module>forge-health-aws</module>
+        <module>forge-http-aws</module>
         <module>forge-metrics</module>
+        <module>forge-observability-aws</module>
         <module>forge-security</module>
         <module>forge-throttle</module>
         <module>forge-logging</module>
@@ -34,6 +36,7 @@
         <bucket4j.version>8.18.0</bucket4j.version>
         <commons.lang3.version>3.20.0</commons.lang3.version>
         <commons.collections4.version>4.5.0</commons.collections4.version>
+        <quarkus.micrometer.registry.version>3.5.0</quarkus.micrometer.registry.version>
 
         <!-- Test dependencies -->
         <junit.version>5.11.4</junit.version>
@@ -131,6 +134,18 @@
                 <artifactId>cognitoidentityprovider</artifactId>
                 <version>${aws.sdk.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <!-- http module -->
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>http-auth-aws</artifactId>
+                <version>${aws.sdk.version}</version>
+            </dependency>
+            <!-- observability module -->
+            <dependency>
+                <groupId>io.quarkiverse.micrometer.registry</groupId>
+                <artifactId>quarkus-micrometer-registry-prometheus-v1</artifactId>
+                <version>${quarkus.micrometer.registry.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
