@@ -20,7 +20,7 @@ source "${REPO_ROOT}/scripts/lib/common.sh"
 
 readonly CACHE_DIR="${REPO_ROOT}/.dependency-check-cache"
 readonly CACHE_DB="${CACHE_DIR}/odc.mv.db"
-# Keep in sync with nvdValidForHours in pom.xml (static-analysis profile).
+# Keep in sync with nvdValidForHours in pom.xml (dependency-check profile).
 readonly NVD_VALID_FOR_HOURS=168
 readonly UPDATE_TIMEOUT_SECONDS="${OWASP_UPDATE_TIMEOUT_SECONDS:-2400}"
 
@@ -100,7 +100,7 @@ run_update() {
     local maven_cmd
     maven_cmd="$(resolve_maven_cmd)"
     run_with_timeout "${UPDATE_TIMEOUT_SECONDS}" \
-        bash -c "cd \"${REPO_ROOT}\" && \"${maven_cmd}\" -B -N org.owasp:dependency-check-maven:update-only -Pstatic-analysis"
+        bash -c "cd \"${REPO_ROOT}\" && \"${maven_cmd}\" -B -N org.owasp:dependency-check-maven:update-only -Pdependency-check"
 }
 
 # ---- Main -------------------------------------------------------------------

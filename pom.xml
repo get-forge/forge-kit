@@ -354,7 +354,7 @@
         </profile>
 
         <profile>
-            <id>static-analysis</id>
+            <id>code-quality</id>
             <properties>
                 <skipUnitTests>true</skipUnitTests>
                 <skipIntegrationTests>true</skipIntegrationTests>
@@ -418,7 +418,15 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
 
+        <!-- OWASP aggregate across reactor modules; invoked via task build:static-analysis (no -N: root-only scan is empty). -->
+        <profile>
+            <id>dependency-check</id>
+            <build>
+                <plugins>
                     <plugin>
                         <groupId>org.owasp</groupId>
                         <artifactId>dependency-check-maven</artifactId>
@@ -482,14 +490,6 @@
                             <artifactoryAnalyzerEnabled>false</artifactoryAnalyzerEnabled>
                             <nexusAnalyzerEnabled>false</nexusAnalyzerEnabled>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                                <phase>verify</phase>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
