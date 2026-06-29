@@ -1,3 +1,9 @@
+## v1.2.1 (2026-06-29)
+
+### Fix
+
+- **ci**: run OWASP aggregate across reactor and trim suppressions
+
 ## v1.2.0 (2026-06-29)
 
 ### Feat
