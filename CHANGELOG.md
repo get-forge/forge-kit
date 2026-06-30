@@ -1,3 +1,9 @@
+## v1.3.1 (2026-06-30)
+
+### Fix
+
+- **observability-aws**: gate AMP and X-Ray exporters at runtime
+
 ## v1.3.0 (2026-06-29)
 
 ### Feat
