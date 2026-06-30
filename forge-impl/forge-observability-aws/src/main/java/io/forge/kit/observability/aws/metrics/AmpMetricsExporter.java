@@ -9,7 +9,6 @@ import io.forge.kit.observability.api.encode.RemoteWritePayload;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry;
 import io.prometheus.metrics.model.snapshots.MetricSnapshots;
-import io.quarkus.arc.lookup.LookupIfProperty;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -22,7 +21,6 @@ import software.amazon.awssdk.http.SdkHttpMethod;
 /**
  * Pushes Micrometer Prometheus metrics to Amazon Managed Prometheus via remote write.
  */
-@LookupIfProperty(name = "forge.observability.amp.remote-write.enabled", stringValue = "true")
 @ApplicationScoped
 public final class AmpMetricsExporter
 {
@@ -67,7 +65,8 @@ public final class AmpMetricsExporter
     /**
      * Pushes the current metric snapshot to AMP on a fixed interval.
      */
-    @Scheduled(every = "${forge.observability.amp.push-interval}")
+    @Scheduled(
+        every = "${forge.observability.amp.push-interval}", skipExecutionIf = AmpRemoteWriteSkipPredicate.class)
     void pushMetrics()
     {
         final MetricSnapshots snapshots = prometheusMeterRegistry.getPrometheusRegistry().scrape();

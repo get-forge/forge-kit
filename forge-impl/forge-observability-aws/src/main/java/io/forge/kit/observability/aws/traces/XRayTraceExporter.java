@@ -8,41 +8,28 @@ import io.forge.kit.observability.aws.encode.OtlpTracePayloadEncoder;
 import io.opentelemetry.sdk.common.CompletableResultCode;
 import io.opentelemetry.sdk.trace.data.SpanData;
 import io.opentelemetry.sdk.trace.export.SpanExporter;
-import io.quarkus.arc.lookup.LookupIfProperty;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 import software.amazon.awssdk.http.SdkHttpMethod;
 
 /**
  * Exports OpenTelemetry spans to the AWS X-Ray OTLP endpoint with SigV4 signing.
+ * <p>
+ * Not a CDI bean: created by {@link XRaySpanExporterProducer} at startup so OTel worker
+ * threads never trigger lazy {@code @ConfigProperty} injection.
  */
-@LookupIfProperty(name = "forge.observability.xray.export.enabled", stringValue = "true")
-@ApplicationScoped
 public final class XRayTraceExporter implements SpanExporter
 {
     private static final Logger LOGGER = Logger.getLogger(XRayTraceExporter.class);
     private static final String OTLP_PROTOBUF_CONTENT_TYPE = "application/x-protobuf";
 
-    @Inject
-    SignedHttpTransport transport;
+    private final SignedHttpTransport transport;
+    private final String otlpEndpoint;
+    private final String awsRegion;
 
-    @ConfigProperty(name = "forge.observability.xray.otlp.endpoint")
-    String otlpEndpoint;
-
-    @ConfigProperty(name = "aws.region")
-    String awsRegion;
-
-    XRayTraceExporter()
-    {
-    }
-
-    XRayTraceExporter(
-                      final SignedHttpTransport transport, final String otlpEndpoint, final String awsRegion)
+    XRayTraceExporter(final SignedHttpTransport transport, final String otlpEndpoint, final String awsRegion)
     {
         this.transport = transport;
         this.otlpEndpoint = otlpEndpoint;

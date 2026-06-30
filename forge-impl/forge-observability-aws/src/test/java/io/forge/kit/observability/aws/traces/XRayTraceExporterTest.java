@@ -1,7 +1,6 @@
 package io.forge.kit.observability.aws.traces;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import io.forge.kit.http.aws.AwsSignedHttpRequest;
 import io.forge.kit.http.aws.AwsSignedHttpResponse;
@@ -29,6 +28,7 @@ class XRayTraceExporterTest
             capturedRequest.set(request);
             return new AwsSignedHttpResponse(200, new byte[0]);
         };
+
         final XRayTraceExporter exporter = new XRayTraceExporter(
                                                                  transport,
                                                                  "https://xray.us-west-2.amazonaws.com/v1/traces",
@@ -52,5 +52,23 @@ class XRayTraceExporterTest
         assertEquals(AwsSigningServiceName.XRAY, request.signingService());
         assertEquals("application/x-protobuf", request.headers().get("Content-Type"));
         assertTrue(request.body().length > 0);
+    }
+
+    @Test
+    void export_whenNoSpans_doesNotSend()
+    {
+        final AtomicReference<AwsSignedHttpRequest> capturedRequest = new AtomicReference<>();
+        final SignedHttpTransport transport = request ->
+        {
+            capturedRequest.set(request);
+            return new AwsSignedHttpResponse(200, new byte[0]);
+        };
+
+        final XRayTraceExporter exporter = new XRayTraceExporter(transport, "https://xray.us-west-2.amazonaws.com/v1/traces", "us-west-2");
+
+        final CompletableResultCode result = exporter.export(List.of());
+
+        assertTrue(result.isSuccess());
+        assertNull(capturedRequest.get());
     }
 }
